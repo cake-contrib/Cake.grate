@@ -7,6 +7,13 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<!-- TODO: Review these lines -->
+		<!--<AdditionalFiles Include="$(SolutionDir)/stylecop.json" Link="stylecop.json" />
+		<None Include="$(SolutionDir)/.editorconfig" Link=".editorconfig" />-->
+		<None Include="$(ProjectDir)../../readme.md" Link="readme.md" PackagePath="" Pack="true" />
+	</ItemGroup>
+
 	<PropertyGroup>
 		<StartYear>2023</StartYear>
 		<EndYear>$([System.DateTime]::Today.Year)</EndYear>
