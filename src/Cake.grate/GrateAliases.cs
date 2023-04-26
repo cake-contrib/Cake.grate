@@ -46,9 +46,8 @@ namespace Cake.grate
                 throw new ArgumentNullException(nameof(context));
             }
 
-            //TODO: Update the call to the Runner
-            //var runner = new RoundhouseRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
-            //runner.Run(settings, settings.Drop);
+            var runner = new GrateRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
+            runner.Run(settings);
         }
 
         /// <summary>
