@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net7.0;</TargetFrameworks>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<StartYear>2023</StartYear>
+		<EndYear>$([System.DateTime]::Today.Year)</EndYear>
+		<FullYear Condition="'$(StartYear)'=='$(EndYear)'">$(StartYear)</FullYear>
+		<FullYear Condition="'$(StartYear)'!='$(EndYear)'">$(StartYear)-$(EndYear)</FullYear>
+
+		<!-- Properties related to packaging -->
+		<!-- TODO: Complete project properties -->
+		<Authors>Fran Hoey</Authors>
+		<Copyright>Copyright © $(FullYear) — Fran Hoey</Copyright>
+		<Description>Makes grate available as a tool in Cake.</Description>
+		<PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</PackageIconUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<!--<PackageProjectUrl>https://github.com/cake-contrib/Cake.ESLint</PackageProjectUrl>-->
+		<PackageTags>cake;addin;grate;build;cake-build;script;cake-addin</PackageTags>
+		<!--<RepositoryUrl>https://github.com/cake-contrib/Cake.ESLint.git</RepositoryUrl>
+		<PackageReleaseNotes>https://github.com/cake-contrib/Cake.ESLint/releases/tag/$(Version)</PackageReleaseNotes>
+		<PackageReadmeFile>README.md</PackageReadmeFile>-->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Cake.Core" Version="3.0.0" PrivateAssets="All"/>
+		<PackageReference Include="CakeContrib.Guidelines" Version="1.4.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>
