@@ -1,14 +1,34 @@
-﻿using Cake.Core;
-using Cake.Core.Diagnostics;
-using Cake.Core.IO;
-using Cake.Core.Tooling;
+﻿// MIT License
+//
+// Copyright (c) 2023 Fran Hoey
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cake.Core;
+using Cake.Core.Diagnostics;
+using Cake.Core.IO;
+using Cake.Core.Tooling;
 
-namespace Cake.grate
+namespace Cake.Grate
 {
     /// <summary>
     /// The Runner, to run the tool.
@@ -27,6 +47,7 @@ namespace Cake.grate
         /// <param name="environment">An <see cref="ICakeEnvironment"/>.</param>
         /// <param name="processRunner">An <see cref="IProcessRunner"/>.</param>
         /// <param name="tools">An <see cref="IToolLocator"/>.</param>
+        /// <param name="log">An <see cref="ICakeLog"/>.</param>
         public GrateRunner(
             IFileSystem fileSystem,
             ICakeEnvironment environment,
@@ -35,9 +56,14 @@ namespace Cake.grate
             ICakeLog log)
             : base(fileSystem, environment, processRunner, tools)
         {
-            this.fileSystem = fileSystem;
-            this.tools = tools;
-            this.environment = environment;
+            if (processRunner is null)
+            {
+                throw new ArgumentNullException(nameof(processRunner));
+            }
+
+            this.fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+            this.tools = tools ?? throw new ArgumentNullException(nameof(tools));
+            this.environment = environment ?? throw new ArgumentNullException(nameof(environment));
             this.log = log ?? throw new ArgumentNullException(nameof(log));
         }
 
@@ -77,7 +103,6 @@ namespace Cake.grate
             var builder = new ProcessArgumentBuilder();
 
             builder.Append("grate");
-
 
             return builder;
         }
