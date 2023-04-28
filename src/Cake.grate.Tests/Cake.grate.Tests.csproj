@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!--
+            Fool Cake.Incubator into thinking we're building agains netcoreapp3.1.
+            This is done to make Cake.Recipe avoid using OpenCover.
+
+            Remove this hack if Cake.Recipe bumps the usage of Cake.Incubator to version 7.0.0
+        -->
+		<TargetFrameworks Condition="false">netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<NoWarn>$(NoWarn);CS1591;SA1600</NoWarn>
+
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+  <ItemGroup>
+	<AdditionalFiles Include="$(SolutionDir)/stylecop.json" Link="stylecop.json" />
+	<None Include="$(SolutionDir)/.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="cake.testing" Version="3.0.0" />
+    <PackageReference Include="fluentassertions" Version="6.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="moq" Version="4.18.4" />
+    <PackageReference Include="stylecop.analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cake.grate\Cake.grate.csproj" />
+  </ItemGroup>
+
+</Project>

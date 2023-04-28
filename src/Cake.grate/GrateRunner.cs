@@ -86,10 +86,10 @@ namespace Cake.Grate
         {
             if (environment.Platform.Family == PlatformFamily.Windows)
             {
-                return new[] { "dotnet.exe" };
+                return new[] { "grate.exe" };
             }
 
-            return new[] { "dotnet" };
+            return new[] { "grate" };
         }
 
         /// <inheritdoc cref="Tool{TSettings}.GetToolName"/>
@@ -101,8 +101,6 @@ namespace Cake.Grate
         private ProcessArgumentBuilder GetArguments(GrateSettings settings)
         {
             var builder = new ProcessArgumentBuilder();
-
-            builder.Append("grate");
 
             return builder;
         }
