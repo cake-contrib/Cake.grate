@@ -21,6 +21,8 @@
 // SOFTWARE.
 
 using System;
+
+using Cake.Core;
 using Cake.Grate.Tests.Fixtures;
 using Cake.Testing;
 
@@ -61,11 +63,86 @@ namespace Cake.Grate.Tests
         [Fact]
         public void Should_add_grate_when_ever_tool_is_run()
         {
-            //fixture.GivenToolExists();
+            fixture.GivenConnectionStringSpecified();
 
             var actual = fixture.Run();
 
             actual.Path.FullPath.Should().Contain("grate");
+        }
+
+        [Fact]
+        public void Should_throw_exception_if_connectionstring_is_not_set()
+        {
+            fixture.Invoking(f => f.Run())
+                .Should().Throw<CakeException>();
+        }
+
+
+        [Fact]
+        public void Should_Execute_Process_With_Flags()
+        {
+            // Given
+            fixture.GivenConnectionStringSpecified();
+            fixture.Settings.Drop = true;
+            fixture.Settings.DryRun = true;
+            fixture.Settings.Silent = true;
+            fixture.Settings.WarnOnOneTimeScriptChanges = true;
+            fixture.Settings.WarnAndIgnoreOnOneTimeScriptChanges = true;
+            fixture.Settings.WithTransaction = true;
+            fixture.Settings.Baseline = true;
+            fixture.Settings.RunAllAnyTimeScripts = true;
+            fixture.Settings.DisableTokenReplacement = true;
+            fixture.Settings.RunAllAnyTimeScripts = true;
+            fixture.Settings.DoNotStoreScriptsRunText = true;
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().StartWith("-drop -dryrun -silent -baseline -disabletokens -runallanytimescripts -w -warnandignoreononetimescriptchanges -t -donotstorescriptsruntext");
+        }
+
+        [Fact]
+        public void Should_Execute_Process_With_Database_Settings()
+        {
+            // Given
+            fixture.GivenConnectionStringSpecified();
+            fixture.Settings.CommandTimeout = 12;
+            fixture.Settings.CommandTimeoutAdmin = 23;
+            fixture.Settings.ConnectionString = "server=foo;db=bar";
+            fixture.Settings.ConnectionStringAdmin = "server=fooAd;db=barAd";
+            fixture.Settings.Restore = "/backs/restore";
+            fixture.Settings.SchemaName = "RH";
+            fixture.Settings.AccessToken = "ac";
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().EndWith("\"-ct=12\" \"-cta=23\" \"-cs=server=foo;db=bar\" " +
+                         "\"-csa=server=fooAd;db=barAd\" " +
+                         "\"-restore=/backs/restore\" " +
+                         "\"-sc=RH\" \"-accesstoken=ac\"");
+        }
+
+        [Fact]
+        public void Should_Execute_Process_With_Roundhouse_Settings()
+        {
+            // Given
+            fixture.GivenConnectionStringSpecified();
+            fixture.Settings.DatabaseType = "roundhouse.databases.postgresql";
+            fixture.Settings.Environment = "STAGING";
+            fixture.Settings.OutputPath = "out_path";
+            fixture.Settings.SqlFilesDirectory = "/db/scripts";
+            fixture.Settings.Version = "1.1.1.1";
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().EndWith("\"-dt=roundhouse.databases.postgresql\" " +
+                         "\"-env=STAGING\" \"-o=out_path\" " +
+                         "\"-f=/db/scripts\" \"-version=1.1.1.1\"");
         }
     }
 }

@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Cake.Core;
 using Cake.Core.Diagnostics;
@@ -78,6 +79,7 @@ namespace Cake.Grate
                 throw new ArgumentNullException(nameof(settings));
             }
 
+            ValidateSettings(settings);
             Run(settings, GetArguments(settings));
         }
 
@@ -98,11 +100,89 @@ namespace Cake.Grate
             return "grate";
         }
 
+        private void ValidateSettings(GrateSettings settings)
+        {
+            if (string.IsNullOrWhiteSpace(settings.ConnectionString))
+            {
+                throw new CakeException("GrateSetting 'ConnectionString' is required.");
+            }
+        }
+
         private ProcessArgumentBuilder GetArguments(GrateSettings settings)
         {
             var builder = new ProcessArgumentBuilder();
 
+            AddFolderArguments(builder, settings);
+            AddFlagArguments(builder, settings);
+            AddDatabaseArguments(builder, settings);
+            AddGrateArguments(builder, settings);
+
             return builder;
+        }
+
+        private void AddFolderArguments(ProcessArgumentBuilder builder, GrateSettings settings)
+        {
+            //TODO: Use grate folder configuration https://erikbra.github.io/grate/folder-configuration/
+        }
+
+        private void AddFlagArguments(ProcessArgumentBuilder builder, GrateSettings settings)
+        {
+            AppendFlag(builder, "drop", settings.Drop);
+            AppendFlag(builder, "dryrun", settings.DryRun);
+            AppendFlag(builder, "silent", settings.Silent);
+            AppendFlag(builder, "baseline", settings.Baseline);
+            //TODO: Add usertokens (ut)
+            AppendFlag(builder, "disabletokens", settings.DisableTokenReplacement);
+            AppendFlag(builder, "runallanytimescripts", settings.RunAllAnyTimeScripts);
+            AppendFlag(builder, "w", settings.WarnOnOneTimeScriptChanges);
+            AppendFlag(builder, "warnandignoreononetimescriptchanges", settings.WarnAndIgnoreOnOneTimeScriptChanges);
+            AppendFlag(builder, "t", settings.WithTransaction);
+            AppendFlag(builder, "donotstorescriptsruntext", settings.DoNotStoreScriptsRunText);
+        }
+
+        private void AddDatabaseArguments(ProcessArgumentBuilder builder, GrateSettings settings)
+        {
+            AppendQuotedIfExists(builder, "ct", settings.CommandTimeout);
+            AppendQuotedIfExists(builder, "cta", settings.CommandTimeoutAdmin);
+            AppendQuotedSecretIfExists(builder, "cs", settings.ConnectionString);
+            AppendQuotedSecretIfExists(builder, "csa", settings.ConnectionStringAdmin);
+            AppendQuotedIfExists(builder, "restore", settings.Restore);
+            AppendQuotedIfExists(builder, "sc", settings.SchemaName);
+            AppendQuotedIfExists(builder, "accesstoken", settings.AccessToken);
+        }
+
+        private void AddGrateArguments(ProcessArgumentBuilder builder, GrateSettings settings)
+        {
+            AppendQuotedIfExists(builder, "dt", settings.DatabaseType);
+            AppendQuotedIfExists(builder, "env", settings.Environment);
+            AppendQuotedIfExists(builder, "o", settings.OutputPath);
+            AppendQuotedIfExists(builder, "f", settings.SqlFilesDirectory);
+            AppendQuotedIfExists(builder, "version", settings.Version);
+            //TOOD: Add Verbosity
+        }
+
+        private void AppendFlag(ProcessArgumentBuilder builder, string key, bool value)
+        {
+            if (value)
+            {
+                builder.Append("-{0}", key);
+            }
+        }
+
+        private void AppendQuotedIfExists(ProcessArgumentBuilder builder, string key, object value)
+        {
+            if (value != null)
+            {
+                builder.AppendQuoted("-{0}={1}", key, value);
+            }
+        }
+
+        private void AppendQuotedSecretIfExists(ProcessArgumentBuilder builder, string key, object value)
+        {
+            if (value != null)
+            {
+                builder.AppendQuotedSecret("-{0}={1}", key, value);
+            }
         }
     }
 }

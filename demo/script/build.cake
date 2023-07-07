@@ -12,14 +12,17 @@ var target = Argument("target", "Default");
 // TASKS
 ///////////////////////////////////////////////////////////////////////////////
 
-Task("ensure-tool")
+Task("Core-Functions")
 .Does(() => 
 {
-   GrateMigrate(new GrateSettings());
+   GrateMigrate(new GrateSettings()
+   {
+      ConnectionString = "Server=(local)\\sql2022;Database=grate-core-functions;Trusted_Connection=True;TrustServerCertificate=true;"
+   });
 });
 
 
 Task("Default")
-   .IsDependentOn("ensure-tool");
+   .IsDependentOn("Core-Functions");
 
 RunTarget(target);
