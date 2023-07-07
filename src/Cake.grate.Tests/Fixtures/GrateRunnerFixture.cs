@@ -29,6 +29,8 @@ namespace Cake.Grate.Tests.Fixtures
 {
     public class GrateRunnerFixture : ToolFixture<GrateSettings>
     {
+        public const string DefaultConnectionString = "server=foo;db=bar";
+
         public GrateRunnerFixture()
            : base("grate")
         {
@@ -41,6 +43,11 @@ namespace Cake.Grate.Tests.Fixtures
         {
             var tool = new GrateRunner(FileSystem, Environment, ProcessRunner, Tools, Log);
             tool.Run(Settings);
+        }
+
+        public void GivenConnectionStringSpecified()
+        {
+            Settings.ConnectionString = DefaultConnectionString;
         }
     }
 }
