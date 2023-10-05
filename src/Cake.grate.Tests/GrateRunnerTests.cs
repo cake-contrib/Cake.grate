@@ -86,20 +86,20 @@ namespace Cake.Grate.Tests
             fixture.Settings.Drop = true;
             fixture.Settings.DryRun = true;
             fixture.Settings.Silent = true;
-            fixture.Settings.WarnOnOneTimeScriptChanges = true;
-            fixture.Settings.WarnAndIgnoreOnOneTimeScriptChanges = true;
+            fixture.Settings.WarnOnOneTimeScriptChanges = true; //TODO add to demo script after folders are done
+            fixture.Settings.WarnAndIgnoreOnOneTimeScriptChanges = true; //TODO add to demo script after folders are done
             fixture.Settings.WithTransaction = true;
             fixture.Settings.Baseline = true;
-            fixture.Settings.RunAllAnyTimeScripts = true;
-            fixture.Settings.DisableTokenReplacement = true;
-            fixture.Settings.RunAllAnyTimeScripts = true;
+            fixture.Settings.RunAllAnyTimeScripts = true; //TODO add to demo script after folders are done
+            fixture.Settings.DisableTokenReplacement = true; //TODO add to demo script after folders are done
+            fixture.Settings.RunAllAnyTimeScripts = true; //TODO add to demo script after folders are done
             fixture.Settings.DoNotStoreScriptsRunText = true;
 
             // When
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().StartWith("-drop -dryrun -silent -baseline -disabletokens -runallanytimescripts -w -warnandignoreononetimescriptchanges -t -donotstorescriptsruntext");
+            result.Args.Should().StartWith("--drop --dryrun --silent --baseline --disabletokens --runallanytimescripts -warnononetimescriptchanges --warnandignoreononetimescriptchanges --transaction --donotstorescriptsruntext");
         }
 
         [Fact]
@@ -119,14 +119,14 @@ namespace Cake.Grate.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().EndWith("\"-ct=12\" \"-cta=23\" \"-cs=server=foo;db=bar\" " +
-                         "\"-csa=server=fooAd;db=barAd\" " +
-                         "\"-restore=/backs/restore\" " +
-                         "\"-sc=RH\" \"-accesstoken=ac\"");
+            result.Args.Should().EndWith("\"--commandtimeout=12\" \"--admincommandtimeout=23\" \"--connectionstring=server=foo;db=bar\" " +
+                         "\"--adminconnectionstring=server=fooAd;db=barAd\" " +
+                         "\"--restore=/backs/restore\" " +
+                         "\"--schemaname=RH\" \"-accesstoken=ac\"");
         }
 
         [Fact]
-        public void Should_Execute_Process_With_Roundhouse_Settings()
+        public void Should_Execute_Process_With_Roundhouse_Settings() // TODO: Add to demo script
         {
             // Given
             fixture.GivenConnectionStringSpecified();
@@ -140,9 +140,9 @@ namespace Cake.Grate.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().EndWith("\"-dt=roundhouse.databases.postgresql\" " +
-                         "\"-env=STAGING\" \"-o=out_path\" " +
-                         "\"-f=/db/scripts\" \"-version=1.1.1.1\"");
+            result.Args.Should().EndWith("\"--databasetype=roundhouse.databases.postgresql\" " +
+                         "\"--environment=STAGING\" \"--outputPath=out_path\" " +
+                         "\"-sqlfilesdirectory=/db/scripts\" \"-version=1.1.1.1\"");
         }
     }
 }
