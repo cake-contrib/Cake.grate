@@ -134,29 +134,29 @@ namespace Cake.Grate
             //TODO: Add usertokens (ut)
             AppendFlag(builder, "disabletokens", settings.DisableTokenReplacement);
             AppendFlag(builder, "runallanytimescripts", settings.RunAllAnyTimeScripts);
-            AppendFlag(builder, "w", settings.WarnOnOneTimeScriptChanges);
+            AppendFlag(builder, "warnononetimescriptchanges", settings.WarnOnOneTimeScriptChanges);
             AppendFlag(builder, "warnandignoreononetimescriptchanges", settings.WarnAndIgnoreOnOneTimeScriptChanges);
-            AppendFlag(builder, "t", settings.WithTransaction);
+            AppendFlag(builder, "transaction", settings.WithTransaction);
             AppendFlag(builder, "donotstorescriptsruntext", settings.DoNotStoreScriptsRunText);
         }
 
         private void AddDatabaseArguments(ProcessArgumentBuilder builder, GrateSettings settings)
         {
-            AppendQuotedIfExists(builder, "ct", settings.CommandTimeout);
-            AppendQuotedIfExists(builder, "cta", settings.CommandTimeoutAdmin);
-            AppendQuotedSecretIfExists(builder, "cs", settings.ConnectionString);
-            AppendQuotedSecretIfExists(builder, "csa", settings.ConnectionStringAdmin);
+            AppendQuotedIfExists(builder, "commandtimeout", settings.CommandTimeout);
+            AppendQuotedIfExists(builder, "admincommandtimeout", settings.CommandTimeoutAdmin);
+            AppendQuotedSecretIfExists(builder, "connectionstring", settings.ConnectionString);
+            AppendQuotedSecretIfExists(builder, "adminconnectionstring", settings.ConnectionStringAdmin);
             AppendQuotedIfExists(builder, "restore", settings.Restore);
-            AppendQuotedIfExists(builder, "sc", settings.SchemaName);
+            AppendQuotedIfExists(builder, "schemaname", settings.SchemaName);
             AppendQuotedIfExists(builder, "accesstoken", settings.AccessToken);
         }
 
         private void AddGrateArguments(ProcessArgumentBuilder builder, GrateSettings settings)
         {
-            AppendQuotedIfExists(builder, "dt", settings.DatabaseType);
-            AppendQuotedIfExists(builder, "env", settings.Environment);
-            AppendQuotedIfExists(builder, "o", settings.OutputPath);
-            AppendQuotedIfExists(builder, "f", settings.SqlFilesDirectory);
+            AppendQuotedIfExists(builder, "databasetype", settings.DatabaseType);
+            AppendQuotedIfExists(builder, "environment", settings.Environment);
+            AppendQuotedIfExists(builder, "outputPath", settings.OutputPath);
+            AppendQuotedIfExists(builder, "sqlfilesdirectory ", settings.SqlFilesDirectory);
             AppendQuotedIfExists(builder, "version", settings.Version);
             //TOOD: Add Verbosity
         }
@@ -165,7 +165,7 @@ namespace Cake.Grate
         {
             if (value)
             {
-                builder.Append("-{0}", key);
+                builder.Append("--{0}", key);
             }
         }
 
@@ -173,7 +173,7 @@ namespace Cake.Grate
         {
             if (value != null)
             {
-                builder.AppendQuoted("-{0}={1}", key, value);
+                builder.AppendQuoted("--{0}={1}", key, value);
             }
         }
 
@@ -181,7 +181,7 @@ namespace Cake.Grate
         {
             if (value != null)
             {
-                builder.AppendQuotedSecret("-{0}={1}", key, value);
+                builder.AppendQuotedSecret("--{0}={1}", key, value);
             }
         }
     }
