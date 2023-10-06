@@ -71,32 +71,5 @@ namespace Cake.Grate
                 context.Log);
             runner.Run(settings);
         }
-
-        // TODO: Update this documentation
-        /// <summary>
-        /// Executes grate migration to drop the database using the provided settings.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// RoundhouseDrop(new RoundhouseSettings{
-        ///     ServerName = "Sql2008R2",
-        ///     DatabaseName = "AdventureWorks2008R2"
-        ///     });
-        /// </code>
-        /// </example>
-        [CakeMethodAlias]
-        public static void GrateDrop(this ICakeContext context, GrateSettings settings)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            // TODO: Update the call to the Runner
-            // var runner = new RoundhouseRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
-            // runner.Run(settings, true);
-        }
     }
 }

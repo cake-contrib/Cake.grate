@@ -92,7 +92,6 @@ namespace Cake.Grate.Tests
             fixture.Settings.Baseline = true;
             fixture.Settings.RunAllAnyTimeScripts = true; 
             fixture.Settings.DisableTokenReplacement = true; 
-            fixture.Settings.RunAllAnyTimeScripts = true; 
             fixture.Settings.DoNotStoreScriptsRunText = true;
 
             // When
@@ -126,7 +125,7 @@ namespace Cake.Grate.Tests
         }
 
         [Fact]
-        public void Should_Execute_Process_With_Roundhouse_Settings()
+        public void Should_Execute_Process_With_Grate_Settings()
         {
             // Given
             fixture.GivenConnectionStringSpecified();
@@ -135,6 +134,7 @@ namespace Cake.Grate.Tests
             fixture.Settings.OutputPath = "out_path";
             fixture.Settings.SqlFilesDirectory = "/db/scripts";
             fixture.Settings.Version = "1.1.1.1";
+            fixture.Settings.Folders = "up=ddl;views=projections;beforemigration=preparefordeploy";
 
             // When
             var result = fixture.Run();
@@ -142,7 +142,9 @@ namespace Cake.Grate.Tests
             // Then
             result.Args.Should().EndWith("\"--databasetype=roundhouse.databases.postgresql\" " +
                          "\"--environment=STAGING\" \"--outputPath=out_path\" " +
-                         "\"--sqlfilesdirectory=/db/scripts\" \"--version=1.1.1.1\"");
+                         "\"--sqlfilesdirectory=/db/scripts\" " +
+                         "\"--folders=up=ddl;views=projections;beforemigration=preparefordeploy\" " +
+                         "\"--version=1.1.1.1\"");
         }
     }
 }

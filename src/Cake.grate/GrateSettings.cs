@@ -71,6 +71,14 @@ namespace Cake.Grate
         public string SqlFilesDirectory { get; set; }
 
         /// <summary>
+        /// Gets or sets the Folder configuration. See <see href="https://erikbra.github.io/grate/folder-configuration/">Grate website</see> for documentation.
+        /// </summary>
+        /// <value>
+        /// The folder configuration.
+        /// </value>
+        public string Folders { get; set; }
+
+        /// <summary>
         /// Gets or sets the version file.
         /// </summary>
         /// <value>
