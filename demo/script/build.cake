@@ -12,13 +12,8 @@ var target = Argument("target", "Default");
 // TASKS
 ///////////////////////////////////////////////////////////////////////////////
 
-//Todo: Add test for  once file location has been completed
-//Todo: Add test for WarnOnOneTimeScriptChanges once file location has been completed
-//Todo: Add test for WarnAndIgnoreOnOneTimeScriptChanges once file location has been completed
-//Todo: Add test for RunAllAnyTimeScripts once file location has been completed
-//Todo: Add test for DisableTokenReplacement once file location has been completed
-//Todo: Add test for RunAllAnyTimeScripts once file location has been completed
-//Todo: Add test for SqlFilesDirectory once file location has been completed
+
+//Todo: Add test for DisableTokenReplacement
 
 Task("Core-Functions")
 .Does(() => 
@@ -38,7 +33,13 @@ Task("Core-Functions")
       DatabaseType = "sqlserver",
       Environment = "Demo",
       OutputPath = outputDirectory,
-      Version = "0.1.2.3"
+      Version = "0.1.2.3",
+      SqlFilesDirectory = "./sqlfiles",
+      Folders= "up=renamed_up;beforemigration=preparefordeploy",
+      WarnOnOneTimeScriptChanges = true,
+      WarnAndIgnoreOnOneTimeScriptChanges = true,
+      RunAllAnyTimeScripts = true,
+      DisableTokenReplacement = true
    });
 });
 

@@ -112,17 +112,11 @@ namespace Cake.Grate
         {
             var builder = new ProcessArgumentBuilder();
 
-            AddFolderArguments(builder, settings);
             AddFlagArguments(builder, settings);
             AddDatabaseArguments(builder, settings);
             AddGrateArguments(builder, settings);
 
             return builder;
-        }
-
-        private void AddFolderArguments(ProcessArgumentBuilder builder, GrateSettings settings)
-        {
-            //TODO: Use grate folder configuration https://erikbra.github.io/grate/folder-configuration/
         }
 
         private void AddFlagArguments(ProcessArgumentBuilder builder, GrateSettings settings)
@@ -157,8 +151,9 @@ namespace Cake.Grate
             AppendQuotedIfExists(builder, "environment", settings.Environment);
             AppendQuotedIfExists(builder, "outputPath", settings.OutputPath);
             AppendQuotedIfExists(builder, "sqlfilesdirectory", settings.SqlFilesDirectory);
+            AppendQuotedIfExists(builder, "folders", settings.Folders);
             AppendQuotedIfExists(builder, "version", settings.Version);
-            //TOOD: Add Verbosity
+            //TODO: Add Verbosity
         }
 
         private void AppendFlag(ProcessArgumentBuilder builder, string key, bool value)
