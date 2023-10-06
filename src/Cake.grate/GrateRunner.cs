@@ -156,7 +156,7 @@ namespace Cake.Grate
             AppendQuotedIfExists(builder, "databasetype", settings.DatabaseType);
             AppendQuotedIfExists(builder, "environment", settings.Environment);
             AppendQuotedIfExists(builder, "outputPath", settings.OutputPath);
-            AppendQuotedIfExists(builder, "sqlfilesdirectory ", settings.SqlFilesDirectory);
+            AppendQuotedIfExists(builder, "sqlfilesdirectory", settings.SqlFilesDirectory);
             AppendQuotedIfExists(builder, "version", settings.Version);
             //TOOD: Add Verbosity
         }

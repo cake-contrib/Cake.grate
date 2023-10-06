@@ -1,5 +1,5 @@
 
-#tool "dotnet:?package=grate"
+#tool "dotnet:?package=grate&version=1.5.3"
 #r "..\..\src\Cake.grate\bin\Debug\net6.0\Cake.grate.dll"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -12,9 +12,20 @@ var target = Argument("target", "Default");
 // TASKS
 ///////////////////////////////////////////////////////////////////////////////
 
+//Todo: Add test for  once file location has been completed
+//Todo: Add test for WarnOnOneTimeScriptChanges once file location has been completed
+//Todo: Add test for WarnAndIgnoreOnOneTimeScriptChanges once file location has been completed
+//Todo: Add test for RunAllAnyTimeScripts once file location has been completed
+//Todo: Add test for DisableTokenReplacement once file location has been completed
+//Todo: Add test for RunAllAnyTimeScripts once file location has been completed
+//Todo: Add test for SqlFilesDirectory once file location has been completed
+
 Task("Core-Functions")
 .Does(() => 
 {
+   const string outputDirectory = "./output";
+   CreateDirectory(outputDirectory);
+
    GrateMigrate(new GrateSettings()
    {
       ConnectionString = "Server=(local)\\sql2022;Database=grate-core-functions;Trusted_Connection=True;TrustServerCertificate=true;",
@@ -25,7 +36,9 @@ Task("Core-Functions")
       WithTransaction = true,
       DoNotStoreScriptsRunText = true,
       DatabaseType = "sqlserver",
-      Environment = "Demo"
+      Environment = "Demo",
+      OutputPath = outputDirectory,
+      Version = "0.1.2.3"
    });
 });
 
