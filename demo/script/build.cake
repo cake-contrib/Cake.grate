@@ -1,5 +1,5 @@
 
-#tool "dotnet:?package=grate&version=1.5.3"
+#tool "dotnet:?package=grate&version=1.5.4"
 #r "..\..\src\Cake.grate\bin\Debug\net6.0\Cake.grate.dll"
 
 ///////////////////////////////////////////////////////////////////////////////
