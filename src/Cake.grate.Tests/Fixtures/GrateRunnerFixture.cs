@@ -20,8 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Cake.Core.IO;
-using Cake.Grate;
 using Cake.Testing;
 using Cake.Testing.Fixtures;
 
@@ -39,15 +37,15 @@ namespace Cake.Grate.Tests.Fixtures
 
         internal FakeLog Log { get; set; }
 
-        protected override void RunTool()
-        {
-            var tool = new GrateRunner(FileSystem, Environment, ProcessRunner, Tools, Log);
-            tool.Run(Settings);
-        }
-
         public void GivenConnectionStringSpecified()
         {
             Settings.ConnectionString = DefaultConnectionString;
+        }
+
+        protected override void RunTool()
+        {
+            var tool = new GrateRunner(FileSystem, Environment, ProcessRunner, Tools);
+            tool.Run(Settings);
         }
     }
 }
