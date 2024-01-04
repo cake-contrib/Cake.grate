@@ -48,7 +48,7 @@ namespace Cake.Grate
         /// <code>
         /// GrateMigrate(new GrateSettings()
         ///   {
-        ///     ConnectionString = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;"
+        ///     ConnectionString = "Server=(local);Database=mydatabase;Trusted_Connection=True;TrustServerCertificate=true;"
         ///   });
         /// </code>
         /// </example>
