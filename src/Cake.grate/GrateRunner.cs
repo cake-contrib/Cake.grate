@@ -37,9 +37,6 @@ namespace Cake.Grate
     public class GrateRunner : Tool<GrateSettings>
     {
         private readonly ICakeEnvironment environment;
-        private readonly IToolLocator tools;
-        private readonly IFileSystem fileSystem;
-        private readonly ICakeLog log;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrateRunner"/> class.
@@ -48,13 +45,11 @@ namespace Cake.Grate
         /// <param name="environment">An <see cref="ICakeEnvironment"/>.</param>
         /// <param name="processRunner">An <see cref="IProcessRunner"/>.</param>
         /// <param name="tools">An <see cref="IToolLocator"/>.</param>
-        /// <param name="log">An <see cref="ICakeLog"/>.</param>
         public GrateRunner(
             IFileSystem fileSystem,
             ICakeEnvironment environment,
             IProcessRunner processRunner,
-            IToolLocator tools,
-            ICakeLog log)
+            IToolLocator tools)
             : base(fileSystem, environment, processRunner, tools)
         {
             if (processRunner is null)
@@ -62,10 +57,7 @@ namespace Cake.Grate
                 throw new ArgumentNullException(nameof(processRunner));
             }
 
-            this.fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
-            this.tools = tools ?? throw new ArgumentNullException(nameof(tools));
             this.environment = environment ?? throw new ArgumentNullException(nameof(environment));
-            this.log = log ?? throw new ArgumentNullException(nameof(log));
         }
 
         /// <summary>
@@ -100,7 +92,7 @@ namespace Cake.Grate
             return "grate";
         }
 
-        private void ValidateSettings(GrateSettings settings)
+        private static void ValidateSettings(GrateSettings settings)
         {
             if (string.IsNullOrWhiteSpace(settings.ConnectionString))
             {
@@ -108,7 +100,7 @@ namespace Cake.Grate
             }
         }
 
-        private ProcessArgumentBuilder GetArguments(GrateSettings settings)
+        private static ProcessArgumentBuilder GetArguments(GrateSettings settings)
         {
             var builder = new ProcessArgumentBuilder();
 
@@ -119,14 +111,15 @@ namespace Cake.Grate
             return builder;
         }
 
-        private void AddFlagArguments(ProcessArgumentBuilder builder, GrateSettings settings)
+        private static void AddFlagArguments(ProcessArgumentBuilder builder, GrateSettings settings)
         {
             AppendFlag(builder, "drop", settings.Drop);
             AppendFlag(builder, "dryrun", settings.DryRun);
             AppendFlag(builder, "silent", settings.Silent);
             AppendFlag(builder, "baseline", settings.Baseline);
-            //TODO: Add usertokens (ut)
-            //TODO: Re-add this line when usertokens are created AppendFlag(builder, "disabletokens", settings.DisableTokenReplacement);
+
+            // TODO: Add usertokens (ut)
+            // TODO: Re-add this line when usertokens are created AppendFlag(builder, "disabletokens", settings.DisableTokenReplacement);
             AppendFlag(builder, "runallanytimescripts", settings.RunAllAnyTimeScripts);
             AppendFlag(builder, "warnononetimescriptchanges", settings.WarnOnOneTimeScriptChanges);
             AppendFlag(builder, "warnandignoreononetimescriptchanges", settings.WarnAndIgnoreOnOneTimeScriptChanges);
@@ -134,7 +127,7 @@ namespace Cake.Grate
             AppendFlag(builder, "donotstorescriptsruntext", settings.DoNotStoreScriptsRunText);
         }
 
-        private void AddDatabaseArguments(ProcessArgumentBuilder builder, GrateSettings settings)
+        private static void AddDatabaseArguments(ProcessArgumentBuilder builder, GrateSettings settings)
         {
             AppendQuotedIfExists(builder, "commandtimeout", settings.CommandTimeout);
             AppendQuotedIfExists(builder, "admincommandtimeout", settings.CommandTimeoutAdmin);
@@ -145,7 +138,7 @@ namespace Cake.Grate
             AppendQuotedIfExists(builder, "accesstoken", settings.AccessToken);
         }
 
-        private void AddGrateArguments(ProcessArgumentBuilder builder, GrateSettings settings)
+        private static void AddGrateArguments(ProcessArgumentBuilder builder, GrateSettings settings)
         {
             AppendQuotedIfExists(builder, "databasetype", settings.DatabaseType);
             AppendQuotedIfExists(builder, "environment", settings.Environment);
@@ -153,10 +146,11 @@ namespace Cake.Grate
             AppendQuotedIfExists(builder, "sqlfilesdirectory", settings.SqlFilesDirectory);
             AppendQuotedIfExists(builder, "folders", settings.Folders);
             AppendQuotedIfExists(builder, "version", settings.Version);
-            //TODO: Add Verbosity
+
+            // TODO: Add Verbosity
         }
 
-        private void AppendFlag(ProcessArgumentBuilder builder, string key, bool value)
+        private static void AppendFlag(ProcessArgumentBuilder builder, string key, bool value)
         {
             if (value)
             {
@@ -164,7 +158,7 @@ namespace Cake.Grate
             }
         }
 
-        private void AppendQuotedIfExists(ProcessArgumentBuilder builder, string key, object value)
+        private static void AppendQuotedIfExists(ProcessArgumentBuilder builder, string key, object value)
         {
             if (value != null)
             {
@@ -172,7 +166,7 @@ namespace Cake.Grate
             }
         }
 
-        private void AppendQuotedSecretIfExists(ProcessArgumentBuilder builder, string key, object value)
+        private static void AppendQuotedSecretIfExists(ProcessArgumentBuilder builder, string key, object value)
         {
             if (value != null)
             {

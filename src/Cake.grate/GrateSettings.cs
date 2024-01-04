@@ -29,7 +29,6 @@ namespace Cake.Grate
     /// </summary>
     public sealed class GrateSettings : ToolSettings
     {
-
         /// <summary>
         /// Gets or sets the connection string.
         /// </summary>
@@ -58,7 +57,7 @@ namespace Cake.Grate
         /// Gets or sets the timeout (in seconds) for admin connections.
         /// </summary>
         /// <value>
-        /// This is the timeout when administration commands are run (except for restore, which has its own)
+        /// This is the timeout when administration commands are run (except for restore, which has its own).
         /// </value>
         public int? CommandTimeoutAdmin { get; set; }
 
@@ -114,7 +113,7 @@ namespace Cake.Grate
         /// Gets or sets the output path.
         /// </summary>
         /// <value>
-        /// This is where everything related to the migration is stored. This includes any backups, all items that ran, permission dumps, logs, etc. Default is %LOCALAPPDATA%/grate
+        /// This is where everything related to the migration is stored. This includes any backups, all items that ran, permission dumps, logs, etc. Default is %LOCALAPPDATA%/grate.
         /// </value>
         public string OutputPath { get; set; }
 
@@ -162,7 +161,7 @@ namespace Cake.Grate
         ///  Gets or sets a value indicating whether to use transactions.
         /// </summary>
         /// <value>
-        ///  Run the migration in a transaction
+        ///  Run the migration in a transaction.
         /// </value>
         public bool WithTransaction { get; set; }
 
@@ -202,7 +201,7 @@ namespace Cake.Grate
         */
 
         /// <summary>
-        ///  Gets or sets the access token to use
+        ///  Gets or sets the access token to use.
         /// </summary>
         /// <value>
         /// Specify an access token to use when connecting to SQL Server.
@@ -216,6 +215,5 @@ namespace Cake.Grate
         /// This instructs grate to not store the full script text in the database. Defaults to <c>false</c>.
         /// </value>
         public bool DoNotStoreScriptsRunText { get; set; }
-
     }
 }

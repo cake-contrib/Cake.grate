@@ -26,21 +26,19 @@ using Cake.Core.Annotations;
 
 namespace Cake.Grate
 {
-    // TODO: Update this documentation
     /// <summary>
     /// <para>Contains functionality related to <see href="https://erikbra.github.io/grate/">grate</see>.</para>
     /// <para>
     /// In order to use the commands for this alias, include the following in your build.cake file to download and
-    /// install from nuget.org, or specify the ToolPath within the <see cref="GrateSettings" /> class:
+    /// install the grate tool:
     /// <code>
-    /// #tool "nuget:?package=roundhouse"
+    /// #tool "dotnet:?package=grate"
     /// </code>
     /// </para>
     /// </summary>
     [CakeAliasCategory("grate")]
     public static class GrateAliases
     {
-        // TODO: Update this documentation
         /// <summary>
         /// Executes grate with the given configured settings.
         /// </summary>
@@ -48,11 +46,10 @@ namespace Cake.Grate
         /// <param name="settings">The settings.</param>
         /// <example>
         /// <code>
-        /// RoundhouseMigrate(new RoundhouseSettings{
-        ///     ServerName = "Sql2008R2",
-        ///     DatabaseName = "AdventureWorks2008R2",
-        ///     SqlFilesDirectory = "./src/sql"
-        ///     });
+        /// GrateMigrate(new GrateSettings()
+        ///   {
+        ///     ConnectionString = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;"
+        ///   });
         /// </code>
         /// </example>
         [CakeMethodAlias]
@@ -67,8 +64,7 @@ namespace Cake.Grate
                 context.FileSystem,
                 context.Environment,
                 context.ProcessRunner,
-                context.Tools,
-                context.Log);
+                context.Tools);
             runner.Run(settings);
         }
     }

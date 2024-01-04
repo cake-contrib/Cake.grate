@@ -24,7 +24,6 @@ using System;
 
 using Cake.Core;
 using Cake.Grate.Tests.Fixtures;
-using Cake.Testing;
 
 using FluentAssertions;
 using Xunit;
@@ -51,16 +50,6 @@ namespace Cake.Grate.Tests
         }
 
         [Fact]
-        public void Should_Throw_If_Log_Is_Null()
-        {
-            fixture.Log = null;
-
-            Action result = () => fixture.Run();
-
-            result.Should().Throw<ArgumentException>();
-        }
-
-        [Fact]
         public void Should_add_grate_when_ever_tool_is_run()
         {
             fixture.GivenConnectionStringSpecified();
@@ -77,7 +66,6 @@ namespace Cake.Grate.Tests
                 .Should().Throw<CakeException>();
         }
 
-
         [Fact]
         public void Should_Execute_Process_With_Flags()
         {
@@ -86,11 +74,12 @@ namespace Cake.Grate.Tests
             fixture.Settings.Drop = true;
             fixture.Settings.DryRun = true;
             fixture.Settings.Silent = true;
-            fixture.Settings.WarnOnOneTimeScriptChanges = true; 
+            fixture.Settings.WarnOnOneTimeScriptChanges = true;
             fixture.Settings.WarnAndIgnoreOnOneTimeScriptChanges = true;
             fixture.Settings.WithTransaction = true;
             fixture.Settings.Baseline = true;
             fixture.Settings.RunAllAnyTimeScripts = true;
+
             // TODO: Readd this when UserTokens are setup
             // fixture.Settings.DisableTokenReplacement = true;
             fixture.Settings.DoNotStoreScriptsRunText = true;
