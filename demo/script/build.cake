@@ -38,8 +38,7 @@ Task("Core-Functions")
       Folders= "up=renamed_up;beforemigration=preparefordeploy",
       WarnOnOneTimeScriptChanges = true,
       WarnAndIgnoreOnOneTimeScriptChanges = true,
-      RunAllAnyTimeScripts = true,
-      DisableTokenReplacement = true
+      RunAllAnyTimeScripts = true
    });
 });
 
