@@ -90,15 +90,16 @@ namespace Cake.Grate.Tests
             fixture.Settings.WarnAndIgnoreOnOneTimeScriptChanges = true;
             fixture.Settings.WithTransaction = true;
             fixture.Settings.Baseline = true;
-            fixture.Settings.RunAllAnyTimeScripts = true; 
-            fixture.Settings.DisableTokenReplacement = true; 
+            fixture.Settings.RunAllAnyTimeScripts = true;
+            // TODO: Readd this when UserTokens are setup
+            // fixture.Settings.DisableTokenReplacement = true;
             fixture.Settings.DoNotStoreScriptsRunText = true;
 
             // When
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().StartWith("--drop --dryrun --silent --baseline --disabletokens --runallanytimescripts --warnononetimescriptchanges --warnandignoreononetimescriptchanges --transaction --donotstorescriptsruntext");
+            result.Args.Should().StartWith("--drop --dryrun --silent --baseline --runallanytimescripts --warnononetimescriptchanges --warnandignoreononetimescriptchanges --transaction --donotstorescriptsruntext");
         }
 
         [Fact]

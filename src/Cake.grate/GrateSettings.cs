@@ -190,6 +190,8 @@ namespace Cake.Grate
         /// </value>
         public bool RunAllAnyTimeScripts { get; set; }
 
+        // TODO: Re-add this when UserTokens are setup
+        /*
         /// <summary>
         ///  Gets or sets a value indicating whether to perform token replacement.
         /// </summary>
@@ -197,6 +199,7 @@ namespace Cake.Grate
         /// This instructs grate to not perform token replacement {{somename}}. Defaults to <c>false</c>.
         /// </value>
         public bool DisableTokenReplacement { get; set; }
+        */
 
         /// <summary>
         ///  Gets or sets the access token to use

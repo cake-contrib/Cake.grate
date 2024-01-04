@@ -126,7 +126,7 @@ namespace Cake.Grate
             AppendFlag(builder, "silent", settings.Silent);
             AppendFlag(builder, "baseline", settings.Baseline);
             //TODO: Add usertokens (ut)
-            AppendFlag(builder, "disabletokens", settings.DisableTokenReplacement);
+            //TODO: Re-add this line when usertokens are created AppendFlag(builder, "disabletokens", settings.DisableTokenReplacement);
             AppendFlag(builder, "runallanytimescripts", settings.RunAllAnyTimeScripts);
             AppendFlag(builder, "warnononetimescriptchanges", settings.WarnOnOneTimeScriptChanges);
             AppendFlag(builder, "warnandignoreononetimescriptchanges", settings.WarnAndIgnoreOnOneTimeScriptChanges);
