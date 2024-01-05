@@ -46,14 +46,14 @@ namespace Cake.Grate
         /// <param name="settings">The settings.</param>
         /// <example>
         /// <code>
-        /// GrateMigrate(new GrateSettings()
+        /// Grate(new GrateSettings()
         ///   {
         ///     ConnectionString = "Server=(local);Database=mydatabase;Trusted_Connection=True;TrustServerCertificate=true;"
         ///   });
         /// </code>
         /// </example>
         [CakeMethodAlias]
-        public static void GrateMigrate(this ICakeContext context, GrateSettings settings)
+        public static void Grate(this ICakeContext context, GrateSettings settings)
         {
             if (context == null)
             {

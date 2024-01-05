@@ -35,7 +35,7 @@ From the grate documentation:
 #addin nuget:?package=Cake.grate
 
 Task("MyTask").Does(() => {
-  GrateMigrate(new GrateSettings()
+  Grate(new GrateSettings()
     {
         ConnectionString = "Server=(local);Database=mydatabase;Trusted_Connection=True;TrustServerCertificate=true;"
     });

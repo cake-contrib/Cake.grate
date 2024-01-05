@@ -2,10 +2,10 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "grate": {
-      "version": "1.5.0",
+    "cake.tool": {
+      "version": "4.0.0",
       "commands": [
-        "grate"
+        "dotnet-cake"
       ]
     }
   }
