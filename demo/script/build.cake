@@ -1,6 +1,6 @@
 
 #tool "dotnet:?package=grate&version=1.5.4"
-#r "..\..\src\Cake.grate\bin\Debug\net6.0\Cake.grate.dll"
+#r "..\..\src\Cake.grate\bin\Debug\net8.0\Cake.grate.dll"
 
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -21,7 +21,7 @@ Task("Core-Functions")
    const string outputDirectory = "./output";
    CreateDirectory(outputDirectory);
 
-   GrateMigrate(new GrateSettings()
+   Grate(new GrateSettings()
    {
       ConnectionString = "Server=(local)\\sql2022;Database=grate-core-functions;Trusted_Connection=True;TrustServerCertificate=true;",
       CommandTimeout = 60,
@@ -47,7 +47,7 @@ Task("Admin")
 {
    // Using ConnectionStringAdmin requires the database to already exist
 
-   GrateMigrate(new GrateSettings()
+   Grate(new GrateSettings()
    {
       ConnectionString = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
       Silent = true
@@ -57,7 +57,7 @@ Task("Admin")
    var backupFile = new FilePath("./grate-admin-functions.bak")
       .MakeAbsolute(Context.Environment);
 
-   GrateMigrate(new GrateSettings()
+   Grate(new GrateSettings()
    {
       ConnectionString = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
       ConnectionStringAdmin = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
@@ -70,7 +70,7 @@ Task("Admin")
 Task("DryRun")
 .Does(() => 
 {
-   GrateMigrate(new GrateSettings()
+   Grate(new GrateSettings()
    {
       ConnectionString = "Server=(local)\\sql2022;Database=grate-dry-run;Trusted_Connection=True;TrustServerCertificate=true;",
       DryRun = true,
@@ -81,7 +81,7 @@ Task("DryRun")
 Task("Baseline")
 .Does(() => 
 {
-   GrateMigrate(new GrateSettings()
+   Grate(new GrateSettings()
    {
       ConnectionString = "Server=(local)\\sql2022;Database=grate-baseline;Trusted_Connection=True;TrustServerCertificate=true;",
       Baseline = true,
