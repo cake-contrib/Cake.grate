@@ -1,7 +1,2 @@
 tools/
 output/
-.vscode/
-node_modules/
-src1/package.json
-package-lock.json
-output.json

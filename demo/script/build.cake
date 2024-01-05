@@ -53,7 +53,7 @@ Task("Admin")
       Silent = true
    });
 
-
+   // Ensure file permissions allow access to the backup file from SQL Server
    var backupFile = new FilePath("./grate-admin-functions.bak")
       .MakeAbsolute(Context.Environment);
 
