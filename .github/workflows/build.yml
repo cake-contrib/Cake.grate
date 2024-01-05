@@ -1,13 +1,40 @@
-name: build
+name: Build
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - "feature/**"
+      - "release/**"
+      - "hotfix/**"
+    tags:
+      - "*"
+    paths-ignore:
+      - "README.md"
+  pull_request:
+
 jobs:
-  check-bats-version:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ windows-2022, ubuntu-22.04, macos-12 ] 
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - name: Checkout the repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - name: Fetch all tags and branches
+        run: git fetch --prune --unshallow
+      - uses: actions/setup-dotnet@v4.0.0
         with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+          dotnet-version: |
+            6.0
+            7.0
+            8.0
+      - name: Build project
+        uses: cake-build/cake-action@v1.4.1
+        with:
+          script-path: build.cake
+          target: Build-And-Test
+          verbosity: Diagnostic
