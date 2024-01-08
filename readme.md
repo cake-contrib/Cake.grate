@@ -1,13 +1,3 @@
-This is work in progress
-
-This project will enable the database migration tool [grate](https://erikbra.github.io/grate/) to be used as an addin in [Cake](https://cakebuild.net). 
-
-This addin will be backwards compatible with the existing [RoundhousE](https://cakebuild.net/dsl/roundhouse/) aliases where the tool grate is backwards compatible with RoundhousE. For details see the grate guide to [Migrating from RoundHouse](https://erikbra.github.io/grate/migrating-from-roundhouse/).
-
-Current version of grate supported is 1.5.3 - once complete I suggest this repo follows the grate version numbers for clarity
-
-
-
 # Cake.grate
 
 Makes [grate](https://erikbra.github.io/grate/) available as a tool in [Cake](https://cakebuild.net/). grate is a re-write of [RoundhousE](https://github.com/chucknorris/roundhouse) for reasons detailed a [RoundhousE issue](https://github.com/chucknorris/roundhouse/issues/438).
