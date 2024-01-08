@@ -1,21 +1,16 @@
-name: Build
+name: Deploy
 
 on:
-  push:
-    branches:
-      - main
-      - develop
-      - "feature/**"
-      - "release/**"
-      - "hotfix/**"
-    paths-ignore:
-      - "README.md"
-  pull_request:
+  release:
+    types: [published]
+
+env:
+  NugetKey: ${{ secrets.NUGET_APIKEY }}
 
 jobs:
   build:
     runs-on: ubuntu-22.04
-
+    
     steps:
       - name: Checkout the repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -27,8 +22,10 @@ jobs:
             6.0
             7.0
             8.0
-      - name: Build project
+      - name: Deploy project
         uses: cake-build/cake-action@v1.4.1
         with:
           script-path: build.cake
-          target: Build-And-Test
+          target: Deploy
+          arguments: |
+            packageversion: ${{ github.ref }}
