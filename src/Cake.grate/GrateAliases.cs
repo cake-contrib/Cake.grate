@@ -64,7 +64,8 @@ namespace Cake.Grate
                 context.FileSystem,
                 context.Environment,
                 context.ProcessRunner,
-                context.Tools);
+                context.Tools,
+                context.Log.Verbosity);
             runner.Run(settings);
         }
     }

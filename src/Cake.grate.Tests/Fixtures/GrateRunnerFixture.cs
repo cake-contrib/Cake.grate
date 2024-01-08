@@ -44,7 +44,7 @@ namespace Cake.Grate.Tests.Fixtures
 
         protected override void RunTool()
         {
-            var tool = new GrateRunner(FileSystem, Environment, ProcessRunner, Tools);
+            var tool = new GrateRunner(FileSystem, Environment, ProcessRunner, Tools, Log.Verbosity);
             tool.Run(Settings);
         }
     }
