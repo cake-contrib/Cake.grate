@@ -23,6 +23,7 @@
 using System;
 
 using Cake.Core;
+using Cake.Core.Diagnostics;
 using Cake.Grate.Tests.Fixtures;
 
 using FluentAssertions;
@@ -108,7 +109,7 @@ namespace Cake.Grate.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().EndWith("\"--commandtimeout=12\" \"--admincommandtimeout=23\" \"--connectionstring=server=foo;db=bar\" " +
+            result.Args.Should().Contain("\"--commandtimeout=12\" \"--admincommandtimeout=23\" \"--connectionstring=server=foo;db=bar\" " +
                          "\"--adminconnectionstring=server=fooAd;db=barAd\" " +
                          "\"--restore=/backs/restore\" " +
                          "\"--schemaname=RH\" \"--accesstoken=ac\"");
@@ -130,11 +131,30 @@ namespace Cake.Grate.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().EndWith("\"--databasetype=roundhouse.databases.postgresql\" " +
+            result.Args.Should().Contain("\"--databasetype=roundhouse.databases.postgresql\" " +
                          "\"--environment=STAGING\" \"--outputPath=out_path\" " +
                          "\"--sqlfilesdirectory=/db/scripts\" " +
                          "\"--folders=up=ddl;views=projections;beforemigration=preparefordeploy\" " +
                          "\"--version=1.1.1.1\"");
+        }
+
+        [Theory]
+        [InlineData(Verbosity.Quiet, "None")]
+        [InlineData(Verbosity.Minimal, "Warning")]
+        [InlineData(Verbosity.Normal, "Information")]
+        [InlineData(Verbosity.Verbose, "Debug")]
+        [InlineData(Verbosity.Diagnostic, "Trace")]
+        public void Should_Translate_Log_Verbosity(Verbosity verbosity, string expectedValue)
+        {
+            // Given
+            fixture.GivenConnectionStringSpecified();
+            fixture.Log.Verbosity = verbosity;
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().EndWith($"\"--verbosity={expectedValue}\"");
         }
     }
 }

@@ -22,7 +22,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Cake.Core;
 using Cake.Core.Diagnostics;
@@ -37,6 +36,7 @@ namespace Cake.Grate
     public class GrateRunner : Tool<GrateSettings>
     {
         private readonly ICakeEnvironment environment;
+        private readonly Verbosity verbosity;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrateRunner"/> class.
@@ -45,11 +45,13 @@ namespace Cake.Grate
         /// <param name="environment">An <see cref="ICakeEnvironment"/>.</param>
         /// <param name="processRunner">An <see cref="IProcessRunner"/>.</param>
         /// <param name="tools">An <see cref="IToolLocator"/>.</param>
+        /// <param name="verbosity">The verbosity or the logging</param>
         public GrateRunner(
             IFileSystem fileSystem,
             ICakeEnvironment environment,
             IProcessRunner processRunner,
-            IToolLocator tools)
+            IToolLocator tools,
+            Verbosity verbosity)
             : base(fileSystem, environment, processRunner, tools)
         {
             if (processRunner is null)
@@ -58,6 +60,7 @@ namespace Cake.Grate
             }
 
             this.environment = environment ?? throw new ArgumentNullException(nameof(environment));
+            this.verbosity = verbosity;
         }
 
         /// <summary>
@@ -72,7 +75,7 @@ namespace Cake.Grate
             }
 
             ValidateSettings(settings);
-            Run(settings, GetArguments(settings));
+            Run(settings, GetArguments(settings, verbosity));
         }
 
         /// <inheritdoc cref="Tool{TSettings}.GetToolExecutableNames(TSettings)"/>
@@ -100,13 +103,13 @@ namespace Cake.Grate
             }
         }
 
-        private static ProcessArgumentBuilder GetArguments(GrateSettings settings)
+        private static ProcessArgumentBuilder GetArguments(GrateSettings settings, Verbosity verbosity)
         {
             var builder = new ProcessArgumentBuilder();
 
             AddFlagArguments(builder, settings);
             AddDatabaseArguments(builder, settings);
-            AddGrateArguments(builder, settings);
+            AddGrateArguments(builder, settings, verbosity);
 
             return builder;
         }
@@ -138,7 +141,7 @@ namespace Cake.Grate
             AppendQuotedIfExists(builder, "accesstoken", settings.AccessToken);
         }
 
-        private static void AddGrateArguments(ProcessArgumentBuilder builder, GrateSettings settings)
+        private static void AddGrateArguments(ProcessArgumentBuilder builder, GrateSettings settings, Verbosity verbosity)
         {
             AppendQuotedIfExists(builder, "databasetype", settings.DatabaseType);
             AppendQuotedIfExists(builder, "environment", settings.Environment);
@@ -146,6 +149,7 @@ namespace Cake.Grate
             AppendQuotedIfExists(builder, "sqlfilesdirectory", settings.SqlFilesDirectory);
             AppendQuotedIfExists(builder, "folders", settings.Folders);
             AppendQuotedIfExists(builder, "version", settings.Version);
+            AppendQuotedIfExists(builder, "verbosity", TranslateVerbosity(verbosity));
 
             // TODO: Add Verbosity
         }
@@ -171,6 +175,25 @@ namespace Cake.Grate
             if (value != null)
             {
                 builder.AppendQuotedSecret("--{0}={1}", key, value);
+            }
+        }
+
+        private static string TranslateVerbosity(Verbosity verbosity)
+        {
+            switch (verbosity)
+            {
+                case Verbosity.Quiet:
+                    return "None";
+                case Verbosity.Minimal:
+                    return "Warning";
+                case Verbosity.Normal:
+                    return "Information";
+                case Verbosity.Verbose:
+                    return "Debug";
+                case Verbosity.Diagnostic:
+                    return "Trace";
+                default:
+                    return "Information"; // default used be grate
             }
         }
     }
