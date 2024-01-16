@@ -12,9 +12,6 @@ var target = Argument("target", "Default");
 // TASKS
 ///////////////////////////////////////////////////////////////////////////////
 
-
-//Todo: Add test for DisableTokenReplacement
-
 Task("Core-Functions")
 .Does(() => 
 {
@@ -38,7 +35,8 @@ Task("Core-Functions")
       Folders= "up=renamed_up;beforemigration=preparefordeploy",
       WarnOnOneTimeScriptChanges = true,
       WarnAndIgnoreOnOneTimeScriptChanges = true,
-      RunAllAnyTimeScripts = true
+      RunAllAnyTimeScripts = true,
+      DisableTokenReplacement = true
    });
 });
 
@@ -89,11 +87,27 @@ Task("Baseline")
    });
 });
 
+Task("UserTokens")
+.Does(() => 
+{
+   var settings = new GrateSettings()
+   {
+      ConnectionString = "Server=(local)\\sql2022;Database=grate-usertokens;Trusted_Connection=True;TrustServerCertificate=true;",
+      SqlFilesDirectory = "./sqlfiles_usertokens",
+      Silent = true
+   };
+
+   settings.WithUserToken("MyToken", "Replaced");
+
+   Grate(settings);
+});
+
 
 Task("Default")
    .IsDependentOn("Core-Functions")
    .IsDependentOn("Admin")
    .IsDependentOn("DryRun")
-   .IsDependentOn("Baseline");
+   .IsDependentOn("Baseline")
+   .IsDependentOn("UserTokens");
 
 RunTarget(target);

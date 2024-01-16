@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 
 using Cake.Core;
 using Cake.Core.Diagnostics;
@@ -80,16 +81,14 @@ namespace Cake.Grate.Tests
             fixture.Settings.WithTransaction = true;
             fixture.Settings.Baseline = true;
             fixture.Settings.RunAllAnyTimeScripts = true;
-
-            // TODO: Readd this when UserTokens are setup
-            // fixture.Settings.DisableTokenReplacement = true;
+            fixture.Settings.DisableTokenReplacement = true;
             fixture.Settings.DoNotStoreScriptsRunText = true;
 
             // When
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().StartWith("--drop --dryrun --silent --baseline --runallanytimescripts --warnononetimescriptchanges --warnandignoreononetimescriptchanges --transaction --donotstorescriptsruntext");
+            result.Args.Should().StartWith("--drop --dryrun --silent --baseline --disabletokens --runallanytimescripts --warnononetimescriptchanges --warnandignoreononetimescriptchanges --transaction --donotstorescriptsruntext");
         }
 
         [Fact]
@@ -155,6 +154,25 @@ namespace Cake.Grate.Tests
 
             // Then
             result.Args.Should().EndWith($"\"--verbosity={expectedValue}\"");
+        }
+
+        [Fact]
+        public void Should_Execute_Process_With_User_Tokens()
+        {
+            // Given
+            fixture.GivenConnectionStringSpecified();
+            fixture.Settings.UserTokens = new Dictionary<string, string>()
+            {
+                { "a", "apple" },
+            };
+            fixture.Settings.WithUserToken("b", "banana");
+
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().Contain("\"--usertokens=a=apple\" \"--usertokens=b=banana\"");
         }
     }
 }

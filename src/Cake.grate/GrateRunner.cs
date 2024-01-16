@@ -110,6 +110,7 @@ namespace Cake.Grate
             AddFlagArguments(builder, settings);
             AddDatabaseArguments(builder, settings);
             AddGrateArguments(builder, settings, verbosity);
+            AddUserTokenArguments(builder, settings);
 
             return builder;
         }
@@ -120,9 +121,7 @@ namespace Cake.Grate
             AppendFlag(builder, "dryrun", settings.DryRun);
             AppendFlag(builder, "silent", settings.Silent);
             AppendFlag(builder, "baseline", settings.Baseline);
-
-            // TODO: Add usertokens (ut)
-            // TODO: Re-add this line when usertokens are created AppendFlag(builder, "disabletokens", settings.DisableTokenReplacement);
+            AppendFlag(builder, "disabletokens", settings.DisableTokenReplacement);
             AppendFlag(builder, "runallanytimescripts", settings.RunAllAnyTimeScripts);
             AppendFlag(builder, "warnononetimescriptchanges", settings.WarnOnOneTimeScriptChanges);
             AppendFlag(builder, "warnandignoreononetimescriptchanges", settings.WarnAndIgnoreOnOneTimeScriptChanges);
@@ -150,8 +149,19 @@ namespace Cake.Grate
             AppendQuotedIfExists(builder, "folders", settings.Folders);
             AppendQuotedIfExists(builder, "version", settings.Version);
             AppendQuotedIfExists(builder, "verbosity", TranslateVerbosity(verbosity));
+        }
 
-            // TODO: Add Verbosity
+        private static void AddUserTokenArguments(ProcessArgumentBuilder builder, GrateSettings settings)
+        {
+            if (settings.UserTokens.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var userToken in settings.UserTokens)
+            {
+                AppendQuotedIfExists(builder, "usertokens", $"{userToken.Key}={userToken.Value}");
+            }
         }
 
         private static void AppendFlag(ProcessArgumentBuilder builder, string key, bool value)
