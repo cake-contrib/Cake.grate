@@ -41,7 +41,8 @@ public sealed class CoreFunctions : FrostingTask<FrostingContext>
             Folders= "up=renamed_up;beforemigration=preparefordeploy",
             WarnOnOneTimeScriptChanges = true,
             WarnAndIgnoreOnOneTimeScriptChanges = true,
-            RunAllAnyTimeScripts = true
+            RunAllAnyTimeScripts = true,
+            DisableTokenReplacement = true
         });
     }
 }
@@ -102,12 +103,31 @@ public sealed class Baseline : FrostingTask<FrostingContext>
     }
 }
 
+[TaskName("UserTokens")]
+public sealed class UserTokens : FrostingTask<FrostingContext>
+{
+    public override void Run(FrostingContext context)
+    {
+        var settings = new GrateSettings()
+        {
+            ConnectionString = "Server=(local)\\sql2022;Database=grate-usertokens;Trusted_Connection=True;TrustServerCertificate=true;",
+            SqlFilesDirectory = "../sqlfiles_usertokens",
+            Silent = true
+        };
+
+        settings.WithUserToken("MyToken", "Replaced");
+
+        context.Grate(settings);
+    }
+}
+
 
 [TaskName("Default")]
 [IsDependentOn(typeof(CoreFunctions))]
 [IsDependentOn(typeof(Admin))]
 [IsDependentOn(typeof(DryRun))]
 [IsDependentOn(typeof(Baseline))]
+[IsDependentOn(typeof(UserTokens))]
 public class DefaultTask : FrostingTask
 {
 }
