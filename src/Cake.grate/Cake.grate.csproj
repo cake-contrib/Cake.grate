@@ -20,16 +20,15 @@
 		<FullYear Condition="'$(StartYear)'!='$(EndYear)'">$(StartYear)-$(EndYear)</FullYear>
 
 		<!-- Properties related to packaging -->
-		<!-- TODO: Complete project properties -->
 		<Authors>Fran Hoey</Authors>
 		<Copyright>Copyright © $(FullYear) — Fran Hoey</Copyright>
 		<Description>Makes grate available as a tool in Cake.</Description>
 		<PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</PackageIconUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<!--<PackageProjectUrl>https://github.com/cake-contrib/Cake.ESLint</PackageProjectUrl>-->
+		<PackageProjectUrl>https://github.com/cake-contrib/Cake.grate</PackageProjectUrl>
 		<PackageTags>cake;addin;grate;build;cake-build;script;cake-addin</PackageTags>
-		<!--<RepositoryUrl>https://github.com/cake-contrib/Cake.ESLint.git</RepositoryUrl>
-		<PackageReleaseNotes>https://github.com/cake-contrib/Cake.ESLint/releases/tag/$(Version)</PackageReleaseNotes>-->
+		<RepositoryUrl>https://github.com/cake-contrib/Cake.grate</RepositoryUrl>
+		<PackageReleaseNotes>https://github.com/cake-contrib/Cake.grate/releases/tag/$(Version)</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
