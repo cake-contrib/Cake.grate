@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+using System.Collections.Generic;
 using Cake.Core.Tooling;
 
 namespace Cake.Grate
@@ -189,8 +191,6 @@ namespace Cake.Grate
         /// </value>
         public bool RunAllAnyTimeScripts { get; set; }
 
-        // TODO: Re-add this when UserTokens are setup
-        /*
         /// <summary>
         ///  Gets or sets a value indicating whether to perform token replacement.
         /// </summary>
@@ -198,7 +198,14 @@ namespace Cake.Grate
         /// This instructs grate to not perform token replacement {{somename}}. Defaults to <c>false</c>.
         /// </value>
         public bool DisableTokenReplacement { get; set; }
-        */
+
+        /// <summary>
+        ///  Gets or sets a dictionary of user tokens
+        /// </summary>
+        /// <value>
+        /// Allows grate to perform token replacement on custom tokens.
+        /// </value>
+        public IDictionary<string, string> UserTokens { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         ///  Gets or sets the access token to use.
