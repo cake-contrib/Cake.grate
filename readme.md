@@ -1,5 +1,8 @@
 # Cake.grate
 
+[![Build][githubimage]][githubbuild]
+[![NuGet package][nugetimage]][nuget]
+
 Makes [grate](https://erikbra.github.io/grate/) available as a tool in [Cake](https://cakebuild.net/). grate is a re-write of [RoundhousE](https://github.com/chucknorris/roundhouse) for reasons detailed a [RoundhousE issue](https://github.com/chucknorris/roundhouse/issues/438).
 
 From the grate documentation:
@@ -31,3 +34,7 @@ Task("MyTask").Does(() => {
     });
 });
 ```
+[githubbuild]: https://github.com/cake-contrib/Cake.grate/actions/workflows/build.yml?query=branch%3Amain
+[githubimage]: https://github.com/cake-contrib/Cake.grate/actions/workflows/build.yml/badge.svg?branch=main
+[nuget]: https://nuget.org/packages/Cake.grate
+[nugetimage]: https://img.shields.io/nuget/v/Cake.grate.svg?logo=nuget&style=flat-square
