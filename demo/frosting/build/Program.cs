@@ -10,7 +10,7 @@ public static class Program
     public static int Main(string[] args)
     {
         return new CakeHost()
-            .InstallTool(new Uri("dotnet:?package=grate&version=1.5.4"))
+            .InstallTool(new Uri("dotnet:?package=grate&version=1.6.2"))
             .Run(args);
     }
 }
