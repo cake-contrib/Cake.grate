@@ -125,6 +125,7 @@ namespace Cake.Grate.Tests
             fixture.Settings.SqlFilesDirectory = "/db/scripts";
             fixture.Settings.Version = "1.1.1.1";
             fixture.Settings.Folders = "up=ddl;views=projections;beforemigration=preparefordeploy";
+            fixture.Settings.RepositoryPath = "RepositoryPath";
 
             // When
             var result = fixture.Run();
@@ -134,7 +135,7 @@ namespace Cake.Grate.Tests
                          "\"--environment=STAGING\" \"--outputPath=out_path\" " +
                          "\"--sqlfilesdirectory=/db/scripts\" " +
                          "\"--folders=up=ddl;views=projections;beforemigration=preparefordeploy\" " +
-                         "\"--version=1.1.1.1\"");
+                         "\"--version=1.1.1.1\" \"--repositorypath=RepositoryPath\"");
         }
 
         [Theory]

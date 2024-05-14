@@ -10,7 +10,7 @@ public static class Program
     public static int Main(string[] args)
     {
         return new CakeHost()
-            .InstallTool(new Uri("dotnet:?package=grate&version=1.6.2"))
+            .InstallTool(new Uri("dotnet:?package=grate&version=1.7.3"))
             .Run(args);
     }
 }
@@ -37,6 +37,7 @@ public sealed class CoreFunctions : FrostingTask<FrostingContext>
             Environment = "Demo",
             OutputPath = outputDirectory,
             Version = "0.1.2.3",
+            RepositoryPath = "RepositoryPath",
             SqlFilesDirectory = "../sqlfiles",
             Folders= "up=renamed_up;beforemigration=preparefordeploy",
             WarnOnOneTimeScriptChanges = true,

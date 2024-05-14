@@ -222,5 +222,13 @@ namespace Cake.Grate
         /// This instructs grate to not store the full script text in the database. Defaults to <c>false</c>.
         /// </value>
         public bool DoNotStoreScriptsRunText { get; set; }
+
+        /// <summary>
+        ///  Gets or sets the repository path value used to track along with version.
+        /// </summary>
+        /// <value>
+        /// A string that can be anything. Used to track versioning along with the version.
+        /// </value>
+        public string RepositoryPath { get; set; }
     }
 }

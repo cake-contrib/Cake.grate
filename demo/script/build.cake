@@ -1,5 +1,5 @@
 
-#tool "dotnet:?package=grate&version=1.6.2"
+#tool "dotnet:?package=grate&version=1.7.3"
 #r "..\..\src\Cake.grate\bin\Debug\net8.0\Cake.grate.dll"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -31,6 +31,7 @@ Task("Core-Functions")
       Environment = "Demo",
       OutputPath = outputDirectory,
       Version = "0.1.2.3",
+      RepositoryPath = "RepositoryPath",
       SqlFilesDirectory = "./sqlfiles",
       Folders= "up=renamed_up;beforemigration=preparefordeploy",
       WarnOnOneTimeScriptChanges = true,
