@@ -25,7 +25,7 @@ From the grate documentation:
 ## Usage
 
 ```cs
-#tool "dotnet:?package=grate&version=1.7.3"
+#tool "dotnet:?package=grate&version=1.7.4"
 #addin nuget:?package=Cake.grate
 
 Task("MyTask").Does(() => {
@@ -38,7 +38,7 @@ Task("MyTask").Does(() => {
 
 ## Compatibility
 
-The version number of Cake.grate keeps in step with the versions released by [grate](https://github.com/erikbra/grate/releases), e.g. 1.7.3 of Cake.grate has been tested against and contains the features of grate version 1.7.3.
+The version number of Cake.grate keeps in step with the versions released by [grate](https://github.com/erikbra/grate/releases), e.g. x.x.x of Cake.grate has been tested against and contains the features of grate version x.x.x.
 
 However, providing there are no breaking changes in a more recent grate version, it is likely Cake.grate will be compatible with it, just specify grate version in the `tool` referenc
 

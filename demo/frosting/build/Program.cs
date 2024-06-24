@@ -10,7 +10,7 @@ public static class Program
     public static int Main(string[] args)
     {
         return new CakeHost()
-            .InstallTool(new Uri("dotnet:?package=grate&version=1.7.3"))
+            .InstallTool(new Uri("dotnet:?package=grate&version=1.7.4"))
             .Run(args);
     }
 }
@@ -26,7 +26,7 @@ public sealed class CoreFunctions : FrostingTask<FrostingContext>
 
         context.Grate(new GrateSettings()
         {
-            ConnectionString = "Server=(local)\\sql2022;Database=grate-core-functions;Trusted_Connection=True;TrustServerCertificate=true;",
+            ConnectionString = "Server=(local);Database=grate-core-functions;Trusted_Connection=True;TrustServerCertificate=true;",
             CommandTimeout = 60,
             SchemaName = "demo",
             Drop = true,
@@ -57,7 +57,7 @@ public sealed class Admin : FrostingTask<FrostingContext>
 
         context.Grate(new GrateSettings()
         {
-            ConnectionString = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
+            ConnectionString = "Server=(local);Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
             Silent = true
         });
 
@@ -67,8 +67,8 @@ public sealed class Admin : FrostingTask<FrostingContext>
 
         context.Grate(new GrateSettings()
         {
-            ConnectionString = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
-            ConnectionStringAdmin = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
+            ConnectionString = "Server=(local);Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
+            ConnectionStringAdmin = "Server=(local);Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
             CommandTimeoutAdmin = 60,
             Restore = backupFile.ToString(),
             Silent = true
@@ -83,7 +83,7 @@ public sealed class DryRun : FrostingTask<FrostingContext>
     {
         context.Grate(new GrateSettings()
         {
-            ConnectionString = "Server=(local)\\sql2022;Database=grate-dry-run;Trusted_Connection=True;TrustServerCertificate=true;",
+            ConnectionString = "Server=(local);Database=grate-dry-run;Trusted_Connection=True;TrustServerCertificate=true;",
             DryRun = true,
             Silent = true
         });
@@ -97,7 +97,7 @@ public sealed class Baseline : FrostingTask<FrostingContext>
     {
         context.Grate(new GrateSettings()
         {
-            ConnectionString = "Server=(local)\\sql2022;Database=grate-baseline;Trusted_Connection=True;TrustServerCertificate=true;",
+            ConnectionString = "Server=(local);Database=grate-baseline;Trusted_Connection=True;TrustServerCertificate=true;",
             Baseline = true,
             Silent = true
         });
@@ -111,7 +111,7 @@ public sealed class UserTokens : FrostingTask<FrostingContext>
     {
         var settings = new GrateSettings()
         {
-            ConnectionString = "Server=(local)\\sql2022;Database=grate-usertokens;Trusted_Connection=True;TrustServerCertificate=true;",
+            ConnectionString = "Server=(local);Database=grate-usertokens;Trusted_Connection=True;TrustServerCertificate=true;",
             SqlFilesDirectory = "../sqlfiles_usertokens",
             Silent = true
         };
@@ -125,7 +125,7 @@ public sealed class UserTokens : FrostingTask<FrostingContext>
 
 [TaskName("Default")]
 [IsDependentOn(typeof(CoreFunctions))]
-[IsDependentOn(typeof(Admin))]
+//[IsDependentOn(typeof(Admin))]
 [IsDependentOn(typeof(DryRun))]
 [IsDependentOn(typeof(Baseline))]
 [IsDependentOn(typeof(UserTokens))]
