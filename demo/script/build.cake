@@ -1,5 +1,5 @@
 
-#tool "dotnet:?package=grate&version=1.7.3"
+#tool "dotnet:?package=grate&version=1.7.4"
 #r "..\..\src\Cake.grate\bin\Debug\net8.0\Cake.grate.dll"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ Task("Core-Functions")
 
    Grate(new GrateSettings()
    {
-      ConnectionString = "Server=(local)\\sql2022;Database=grate-core-functions;Trusted_Connection=True;TrustServerCertificate=true;",
+      ConnectionString = "Server=(local);Database=grate-core-functions;Trusted_Connection=True;TrustServerCertificate=true;",
       CommandTimeout = 60,
       SchemaName = "demo",
       Drop = true,
@@ -48,7 +48,7 @@ Task("Admin")
 
    Grate(new GrateSettings()
    {
-      ConnectionString = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
+      ConnectionString = "Server=(local);Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
       Silent = true
    });
 
@@ -58,8 +58,8 @@ Task("Admin")
 
    Grate(new GrateSettings()
    {
-      ConnectionString = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
-      ConnectionStringAdmin = "Server=(local)\\sql2022;Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
+      ConnectionString = "Server=(local);Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
+      ConnectionStringAdmin = "Server=(local);Database=grate-admin-functions;Trusted_Connection=True;TrustServerCertificate=true;",
       CommandTimeoutAdmin = 60,
       Restore = backupFile.ToString(),
       Silent = true
@@ -71,7 +71,7 @@ Task("DryRun")
 {
    Grate(new GrateSettings()
    {
-      ConnectionString = "Server=(local)\\sql2022;Database=grate-dry-run;Trusted_Connection=True;TrustServerCertificate=true;",
+      ConnectionString = "Server=(local);Database=grate-dry-run;Trusted_Connection=True;TrustServerCertificate=true;",
       DryRun = true,
       Silent = true
    });
@@ -82,7 +82,7 @@ Task("Baseline")
 {
    Grate(new GrateSettings()
    {
-      ConnectionString = "Server=(local)\\sql2022;Database=grate-baseline;Trusted_Connection=True;TrustServerCertificate=true;",
+      ConnectionString = "Server=(local);Database=grate-baseline;Trusted_Connection=True;TrustServerCertificate=true;",
       Baseline = true,
       Silent = true
    });
@@ -93,7 +93,7 @@ Task("UserTokens")
 {
    var settings = new GrateSettings()
    {
-      ConnectionString = "Server=(local)\\sql2022;Database=grate-usertokens;Trusted_Connection=True;TrustServerCertificate=true;",
+      ConnectionString = "Server=(local);Database=grate-usertokens;Trusted_Connection=True;TrustServerCertificate=true;",
       SqlFilesDirectory = "./sqlfiles_usertokens",
       Silent = true
    };
