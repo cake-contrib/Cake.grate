@@ -127,6 +127,7 @@ namespace Cake.Grate
             AppendFlag(builder, "warnandignoreononetimescriptchanges", settings.WarnAndIgnoreOnOneTimeScriptChanges);
             AppendFlag(builder, "transaction", settings.WithTransaction);
             AppendFlag(builder, "donotstorescriptsruntext", settings.DoNotStoreScriptsRunText);
+            AppendFlag(builder, "isuptodate", settings.IsUpToDate);
         }
 
         private static void AddDatabaseArguments(ProcessArgumentBuilder builder, GrateSettings settings)

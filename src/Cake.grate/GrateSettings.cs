@@ -88,6 +88,14 @@ namespace Cake.Grate
         public string Version { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to check if the database is up to date or not
+        /// </summary>
+        /// <value>
+        /// If true outputs whether the database is up to date or not (whether any non-everytime scripts would be run)
+        /// </value>
+        public bool IsUpToDate { get; set; }
+
+        /// <summary>
         /// Gets or sets the schema name to use instead of [grate].
         /// </summary>
         /// <value>
