@@ -25,7 +25,7 @@ From the grate documentation:
 ## Usage
 
 ```cs
-#tool "dotnet:?package=grate&version=1.7.4"
+#tool "dotnet:?package=grate&version=1.8.0"
 #addin nuget:?package=Cake.grate
 
 Task("MyTask").Does(() => {

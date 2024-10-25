@@ -1,5 +1,5 @@
 
-#tool "dotnet:?package=grate&version=1.7.4"
+#tool "dotnet:?package=grate&version=1.8.0"
 #r "..\..\src\Cake.grate\bin\Debug\net8.0\Cake.grate.dll"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -38,6 +38,17 @@ Task("Core-Functions")
       WarnAndIgnoreOnOneTimeScriptChanges = true,
       RunAllAnyTimeScripts = true,
       DisableTokenReplacement = true
+   });
+});
+
+Task("IsUpToDate")
+.Does(() => 
+{
+   Grate(new GrateSettings()
+   {
+      ConnectionString = "Server=(local);Database=grate-dry-run;Trusted_Connection=True;TrustServerCertificate=true;",
+      IsUpToDate = true,
+      Silent = true
    });
 });
 
@@ -106,6 +117,7 @@ Task("UserTokens")
 
 Task("Default")
    .IsDependentOn("Core-Functions")
+   .IsDependentOn("IsUpToDate")
    .IsDependentOn("Admin")
    .IsDependentOn("DryRun")
    .IsDependentOn("Baseline")

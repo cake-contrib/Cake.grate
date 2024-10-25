@@ -10,7 +10,7 @@ public static class Program
     public static int Main(string[] args)
     {
         return new CakeHost()
-            .InstallTool(new Uri("dotnet:?package=grate&version=1.7.4"))
+            .InstallTool(new Uri("dotnet:?package=grate&version=1.8.0"))
             .Run(args);
     }
 }
@@ -44,6 +44,20 @@ public sealed class CoreFunctions : FrostingTask<FrostingContext>
             WarnAndIgnoreOnOneTimeScriptChanges = true,
             RunAllAnyTimeScripts = true,
             DisableTokenReplacement = true
+        });
+    }
+}
+
+[TaskName("IsUpToDate")]
+public sealed class IsUpToDate : FrostingTask<FrostingContext>
+{
+    public override void Run(FrostingContext context)
+    {
+        context.Grate(new GrateSettings()
+        {
+            ConnectionString = "Server=(local);Database=grate-dry-run;Trusted_Connection=True;TrustServerCertificate=true;",
+            IsUpToDate = true,
+            Silent = true
         });
     }
 }
@@ -125,7 +139,8 @@ public sealed class UserTokens : FrostingTask<FrostingContext>
 
 [TaskName("Default")]
 [IsDependentOn(typeof(CoreFunctions))]
-//[IsDependentOn(typeof(Admin))]
+[IsDependentOn(typeof(IsUpToDate))]
+[IsDependentOn(typeof(Admin))]
 [IsDependentOn(typeof(DryRun))]
 [IsDependentOn(typeof(Baseline))]
 [IsDependentOn(typeof(UserTokens))]
