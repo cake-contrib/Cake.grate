@@ -169,7 +169,6 @@ namespace Cake.Grate.Tests
             };
             fixture.Settings.WithUserToken("b", "banana");
 
-
             // When
             var result = fixture.Run();
 

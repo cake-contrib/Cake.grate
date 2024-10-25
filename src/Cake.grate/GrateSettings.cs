@@ -88,10 +88,10 @@ namespace Cake.Grate
         public string Version { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to check if the database is up to date or not
+        /// Gets or sets a value indicating whether to check if the database is up to date or not.
         /// </summary>
         /// <value>
-        /// If true outputs whether the database is up to date or not (whether any non-everytime scripts would be run)
+        /// If true outputs whether the database is up to date or not (whether any non-everytime scripts would be run).
         /// </value>
         public bool IsUpToDate { get; set; }
 
@@ -208,7 +208,7 @@ namespace Cake.Grate
         public bool DisableTokenReplacement { get; set; }
 
         /// <summary>
-        ///  Gets or sets a dictionary of user tokens
+        ///  Gets or sets a dictionary of user tokens.
         /// </summary>
         /// <value>
         /// Allows grate to perform token replacement on custom tokens.
