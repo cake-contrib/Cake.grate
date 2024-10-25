@@ -83,12 +83,13 @@ namespace Cake.Grate.Tests
             fixture.Settings.RunAllAnyTimeScripts = true;
             fixture.Settings.DisableTokenReplacement = true;
             fixture.Settings.DoNotStoreScriptsRunText = true;
+            fixture.Settings.IsUpToDate = true;
 
             // When
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().StartWith("--drop --dryrun --silent --baseline --disabletokens --runallanytimescripts --warnononetimescriptchanges --warnandignoreononetimescriptchanges --transaction --donotstorescriptsruntext");
+            result.Args.Should().StartWith("--drop --dryrun --silent --baseline --disabletokens --runallanytimescripts --warnononetimescriptchanges --warnandignoreononetimescriptchanges --transaction --donotstorescriptsruntext --isuptodate");
         }
 
         [Fact]
@@ -167,7 +168,6 @@ namespace Cake.Grate.Tests
                 { "a", "apple" },
             };
             fixture.Settings.WithUserToken("b", "banana");
-
 
             // When
             var result = fixture.Run();

@@ -45,7 +45,7 @@ namespace Cake.Grate
         /// <param name="environment">An <see cref="ICakeEnvironment"/>.</param>
         /// <param name="processRunner">An <see cref="IProcessRunner"/>.</param>
         /// <param name="tools">An <see cref="IToolLocator"/>.</param>
-        /// <param name="verbosity">The verbosity or the logging</param>
+        /// <param name="verbosity">The verbosity or the logging.</param>
         public GrateRunner(
             IFileSystem fileSystem,
             ICakeEnvironment environment,
@@ -127,6 +127,7 @@ namespace Cake.Grate
             AppendFlag(builder, "warnandignoreononetimescriptchanges", settings.WarnAndIgnoreOnOneTimeScriptChanges);
             AppendFlag(builder, "transaction", settings.WithTransaction);
             AppendFlag(builder, "donotstorescriptsruntext", settings.DoNotStoreScriptsRunText);
+            AppendFlag(builder, "isuptodate", settings.IsUpToDate);
         }
 
         private static void AddDatabaseArguments(ProcessArgumentBuilder builder, GrateSettings settings)

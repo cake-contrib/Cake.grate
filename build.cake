@@ -92,7 +92,8 @@ Task("Default")
 {
    Information(@"The following tasks are available:
 
-Build-And-Test: Builds the Addin and runs the Unit Tests");
+Build-And-Test:   Builds the Addin and runs the Unit Tests
+Deploy:           Runs Build-And-Test and then packs and deploys the Nuget package");
 });
    
 
